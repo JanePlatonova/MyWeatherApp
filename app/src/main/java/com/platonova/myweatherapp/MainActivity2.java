@@ -9,9 +9,14 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.platonova.myweatherapp.Data.Example;
 import com.platonova.myweatherapp.Data.WeatherDB;
@@ -27,10 +32,44 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity2 extends AppCompatActivity {
-   private Repository repository;
+  //private Repository repository;
    LiveData<WeatherEntity> weatherData;
 
    private Day1ViewModel day1ViewModel;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch(item.getItemId()){
+            case R.id.menuAbout:
+                Toast.makeText(this, "You clicked about", Toast.LENGTH_SHORT).show();
+                Log.i("menu","About");
+                break;
+
+            case R.id.menuSettings:
+                Toast.makeText(this, "You clicked settings", Toast.LENGTH_SHORT).show();
+                Log.i("menu","Setting");
+                break;
+
+            case R.id.menuWeekWeather:
+                Toast.makeText(this, "You clicked logout", Toast.LENGTH_SHORT).show();
+                Log.i("menu","Week weather");
+                Intent intent=new Intent(MainActivity2.this,MainActivity3.class);
+                intent.putExtra("Key",day1ViewModel.cityName);
+                startActivity(intent);
+                break;
+
+        }
+        return true;
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +85,7 @@ public class MainActivity2 extends AppCompatActivity {
         weatherData.observe(this, new Observer<WeatherEntity>() {
                     @Override
                     public void onChanged(WeatherEntity weatherEntities) {
-                        if (weatherData != null) {
+                        if ((weatherData.getValue() != null)) {
                             Log.i("Jane temp", String.valueOf(weatherData.getValue().temp));
                             wind.setText(String.valueOf(weatherData.getValue().wind));
                             temp.setText(String.valueOf(weatherData.getValue().temp));
@@ -61,9 +100,9 @@ public class MainActivity2 extends AppCompatActivity {
 //                if (weatherData!=null) {
 //                    Log.i("Jane temp", String.valueOf(weatherData.getValue().temp));
 //                    wind.setText( String.valueOf(weatherData.getValue().wind));
-//                    temp.setText(String.valueOf(weatherData.getValue().temp));
+//
+////            }            temp.setText(String.valueOf(weatherData.getValue().temp));
 //                }
-//            }
 //        });
 
 

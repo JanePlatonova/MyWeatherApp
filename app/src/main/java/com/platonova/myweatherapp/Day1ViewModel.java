@@ -10,7 +10,7 @@ import com.platonova.myweatherapp.Data.WeatherEntity;
 
 public class Day1ViewModel extends AndroidViewModel {
     private Repository repository;
-    private String cityName;
+    public String cityName;
     private LiveData<WeatherEntity> weatherData;
 
     public Day1ViewModel (Application application) {

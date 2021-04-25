@@ -3,10 +3,14 @@ package com.platonova.myweatherapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,7 +28,37 @@ import retrofit2.http.Query;
 
 
 public class MainActivity extends AppCompatActivity {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
+        switch(item.getItemId()){
+            case R.id.menuAbout:
+                Toast.makeText(this, "You clicked about", Toast.LENGTH_SHORT).show();
+                Log.i("menu","About");
+                break;
+
+            case R.id.menuSettings:
+                Toast.makeText(this, "You clicked settings", Toast.LENGTH_SHORT).show();
+                Log.i("menu","Setting");
+                break;
+
+            case R.id.menuWeekWeather:
+                Toast.makeText(this, "You clicked logout", Toast.LENGTH_SHORT).show();
+                Log.i("menu","Week weather");
+                Intent intent=new Intent(MainActivity.this,MainActivity2.class);
+                intent.putExtra("Key","Kiev");
+                startActivity(intent);
+                break;
+
+        }
+        return true;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

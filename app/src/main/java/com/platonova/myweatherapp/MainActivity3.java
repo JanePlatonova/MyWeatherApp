@@ -28,7 +28,7 @@ public class MainActivity3 extends AppCompatActivity implements MyRecyclerViewAd
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
-        String s="London";
+        String s=getIntent().getExtras().get("Key").toString();
         editText=findViewById(R.id.city3);
         editText.setText(s);
         RecyclerView recyclerView;
